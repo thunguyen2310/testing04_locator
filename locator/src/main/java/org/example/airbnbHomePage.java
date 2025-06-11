@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
@@ -11,12 +12,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class airbnbHomePage {
-    static Logger logger = LogManager.getLogger("testHrmAdminPage");
+    static Logger logger = LogManager.getLogger("testAirbnbHomePage");
     public static void main(String[] args) {
         // tu dong tai va cau hinh chromedriver
         WebDriverManager.chromedriver().setup();
-        //WebDriverManager.chromedriver().setup();
-        //tạo 1 doi tuong chrome de selenium dieu kien
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         try {
@@ -26,116 +25,95 @@ public class airbnbHomePage {
             Thread.sleep(5000);
 
             //1 Locator Admin
-            driver.findElement(By.xpath("//a[@href='/web/index.php/admin/viewAdminModule']")).click();
+            WebElement locatorLogo =  driver.findElement(By.xpath("//span[normalize-space()='airbnb']"));
+            locatorLogo.click();
             Thread.sleep(5000);
-            // System.out.println("đã đi vào pim thành cong.");
-            logger.info("đã đi vào admin thành công.");
+            logger.info("Đã click vào locator Logo Airbnb");
 
-            //2 Locator PIM
-            driver.findElement(By.xpath("//a[@href='/web/index.php/pim/viewPimModule']")).click();
+            //2 Locator Home
+            WebElement Home = driver.findElement(By.xpath("//a[normalize-space()='Home']"));
+            logger.info("Đã click vào locator Home");
+            Thread.sleep(3000);
+
+            //3  Locator About
+            WebElement locatorAbout = driver.findElement(By.xpath("//a[normalize-space()='About']"));
+            locatorAbout.click();
+            logger.info("Đã click vào locator About" );
+
+            //4 Locator Avatar
+            WebElement locatorAvatar = driver.findElement(By.xpath("//button[contains(@class, ' text-sm bg-main')]"));
+            locatorAvatar.click();
+            logger.info("Đã click vào locator Avatar" );
+            Thread.sleep(3000);
+            locatorAvatar.click();
+            logger.info("Đã đóng locato Avatar" );
+
+            // (5)
+            WebElement locatorDiaDiem = driver.findElement(By.xpath("//p[normalize-space()='Địa điểm']/parent::div"));
+            locatorDiaDiem.click();
             Thread.sleep(5000);
-            // System.out.println("đã đi vào pim thành cong.");
-            logger.info("đã đi vào pim thành công.");
+            logger.info("Đã click vào locator DiaDiem" );
 
-            //3 Locator Leave
-            driver.findElement(By.xpath("//a[@href='/web/index.php/leave/viewLeaveModule']")).click();
-            Thread.sleep(5000);
-            // System.out.println("đã đi vào pim thành cong.");
-            logger.info("đã đi vào leave thành công.");
+            //6 Locator Thời gian
+            WebElement locatorThoiGian = driver.findElement(By.xpath("//div[contains(@class,'col-span-4')]"));
+            locatorThoiGian.click();
+            Thread.sleep(2000);
+            logger.info("Đã click vào locator ThoiGian" );
 
-            //Locator Admin
-            driver.findElement(By.xpath("//a[@href='/web/index.php/admin/viewAdminModule']")).click();
-            Thread.sleep(5000);
-            // System.out.println("đã đi vào pim thành cong.");
-            logger.info("đã đi vào admin thành công.");
+            //7 Locator Thêm Khách
+            WebElement  locatorThemKhach = driver.findElement(By.xpath("//p[text()='Thêm khách']/parent::div"));
+            locatorThemKhach.click();
+            Thread.sleep(1500);
+            logger.info("Đã click vào locator Thêm Khách" );
 
-//            //Locator Admin
-//            //(//input[@class='oxd-input oxd-input--active'])[2]
-//            driver.findElement(By.xpath("//label[text()='Username']/following:://input[@class='oxd-input oxd-input--active']")).click();
-//            Thread.sleep(5000);
-//            // System.out.println("đã đi vào pim thành cong.");
-//            logger.info("đã đi vào admin thành công.");
+            //8 Thêm 1 Khách
+            WebElement them1Khach = driver.findElement(By.xpath("//div[normalize-space()='+']"));
+            them1Khach.click();
+            Thread.sleep(2000);
+            logger.info("Thêm 1 Khách" );
 
-            //4 Locator User name
-            driver.findElement(By.xpath("(//input[@class='oxd-input oxd-input--active'])[2]")).click();
-            // System.out.println("sendkey thành cong.");
-            logger.info("Click thành công user name.");
+            //9 Giảm 1 Khách
+            WebElement giam1Khach =driver.findElement(By.xpath("//div[normalize-space()='-']"));
+            giam1Khach.click();
+            Thread.sleep(3000);
+            logger.info("Giảm 1 Khách" );
 
-            //5 Locator User Role
-            driver.findElement(By.xpath("(//div[@class='oxd-select-text oxd-select-text--active'])[1]")).click();
-            // System.out.println("sendkey thành cong.");
-            logger.info("Click thành công user role.");
+            //10 Locator HCM
+            WebElement hcm =  driver.findElement(By.xpath("(//a[@href='/rooms/ho-chi-minh'])[1]"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", hcm);
+            Thread.sleep(2000);hcm.click();
+            Thread.sleep(3000);
+            // quay lại trang chủ
+            locatorLogo.click();
+            logger.info("Đã click vào đại điểm tp HCM" );
 
-            //7 Locator Admin
-            driver.findElement(By.xpath("(//div[@class='oxd-select-text-input'][normalize-space()='Admin'])[1]")).click();
-            // System.out.println("sendkey thành cong.");
-            logger.info("Locator Admin");
+            //12 Loai Noi O
+            WebElement loaiNoiO = driver.findElement(By.xpath("//button[text()='Loại nơi ở']"));
+            logger.info("Đã click vào Loai Noi o");
 
-            //8 Locator Employee Name
-            driver.findElement(By.xpath("(//input[@placeholder='Type for hints...'])[1]")).click();
-            logger.info("Locator Employee Name");
+            //13 Locator Gia
+            WebElement giaText = driver.findElement(By.xpath("//button[text()='Giá']"));
+            logger.info("Đã click vào Gia");
 
-            //9 Locator button reset
-            driver.findElement(By.xpath("//button[normalize-space()='Reset']")).click();
-            logger.info("Locator button reset");
+            //14 Locator Nha Trang giờ Lái xe
+            WebElement NT65LaiXeText = driver.findElement(By.xpath("(//p[contains(@class,'text-gray-700 text-sm')])[3]"));
+            logger.info("Đã click vào Nha Trang giờ lái xe");
 
-            //10 Locator button Search
-            driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
-            logger.info("Locator button Search");
-
-            //11 Locator User Management
-            driver.findElement(By.xpath("//span[normalize-space()='User Management']")).click();
-            logger.info("Locator User Management");
-
-            //12 Locator Dena.Parisian
-            driver.findElement(By.xpath("//div[contains(text(),'Dena.Parisian')]")).click();
-            logger.info("Locator Dena.Parisian");
-
-            //13 Locator ESS
-            driver.findElement(By.xpath("(//div[contains(text(),'ESS')])[2]")).click();
-            logger.info("Locator ESS");
-
-            //14 Locator button remove
-            driver.findElement(By.xpath("(//button[@type='button'])[7]")).click();
-            logger.info("Locator button remove");
-
-            //15 Locator button edit
-            driver.findElement(By.xpath("(//button[@type='button'])[8]")).click();
-            logger.info("Locator button edit");
-
-            //16 Locator User Role
-            driver.findElement(By.xpath("//div[@role='columnheader'][normalize-space()='']")).click();
-            logger.info("Locator User Role");
-
-            //17 Locator Employee Name
-            driver.findElement(By.xpath("(//div[@role='columnheader'])[1]")).click();
-            logger.info("Locator Employee Name");
-
-            //18 Locator Admin/User Management
-            driver.findElement(By.xpath("//span[@class='oxd-topbar-header-breadcrumb']")).click();
-            logger.info("Admin/User Management");
-
-            //19 Locator button <
-            driver.findElement(By.xpath("//button[@role='none']")).click();
-            logger.info("Locator button <");
-
-            //20 Locator button ^
-            driver.findElement(By.xpath("//i[@class='oxd-icon bi-caret-up-fill']")).click();
-            logger.info("Locator button ^");
-
-            //21 Locator button add
-            driver.findElement(By.xpath("//button[normalize-space()='Add']")).click();
-            logger.info("Locator button add");
+            //11 Locator CanTho
+            Thread.sleep(3000);
+            WebElement cantho = driver.findElement(By.xpath("(//a[contains(@href,'/rooms/can-tho')])[1]"));
+            driver.findElement(By.xpath("arguments[0].scrollIntoView({block: 'center'});"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", cantho);
+            locatorLogo.click();
+            logger.info("Đã click vào đại điểm tp Can Tho" );
 
         } catch (InterruptedException e) {
-
             e.printStackTrace();
-
         } finally {
-            //   driver.quit();
-
+//            driver.quit();
         }
 
     }
 
 }
+

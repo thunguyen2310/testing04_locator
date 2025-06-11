@@ -1,0 +1,16 @@
+<suite name = "Test Suite">
+    <test name = "Test">
+        <classes>
+            <class name ="scripts.cinemaBookingTest">
+                <methods>
+                    <include name ="verifyBooking"/>
+                </methods>
+            </class>
+            <class name="scripts.demotestng">
+                <methods>
+                    <include name="verifyloginpass"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
